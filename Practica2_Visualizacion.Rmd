@@ -215,7 +215,42 @@ ggsave("./figure/Ejercicio2.pdf", width = 5, height = 5)
 * Almacena en formato **pdf** el gráfico resultante en un fichero denominado ``Ejercicio3.pdf``.
 
 ```{r Solucion ejercicio 3}
+load("data/iris_tidy.RData") # Cargamos el fichero ``iris_tidy.RData``
 
+# Con la funcion str() comprobamos la estructura de iris.tidy
+str(iris.tidy) # Iris.tidy contiene 4 variables (Species, Part, Measure, Value)
+
+# Creamos un grafico ggplot con x = Species e y = Value
+iris.grafico1 <- ggplot(data = iris.tidy, aes(x = Species, y = Value))
+iris.grafico1
+
+# Añadimos una capa para crear un grafico de dispersion de Specie y Value
+iris.grafico1 <- iris.grafico1 + geom_point()
+iris.grafico1
+
+# Modificamos grafico 1 para que de informacion acerca de la variable Part
+iris.grafico2 <- ggplot(data = iris.tidy, aes(x = Species, y = Value, 
+                                              color = Part)) + geom_point()
+iris.grafico2
+
+# Introducimos la informacion de la variable Measure
+iris.grafico2_cols <- iris.grafico2 + facet_grid(.~Measure )
+iris.grafico2_cols
+iris.grafico2_filas <- iris.grafico2 + facet_grid(Measure~. )
+iris.grafico2_filas
+# Es mucho mas facil comparar las dos variables con la disposicion de columnas,
+# ya que se diferencian mas facilmente los puntos
+
+# Cambiamos la capa geom_point() por la geom_jitter()
+
+iris.grafico3 <- ggplot(data = iris.tidy, aes(x = Species, y = Value, color = Part)) + 
+  geom_jitter() + facet_grid(.~Measure )
+iris.grafico3
+# La diferencia es que con geom_jitter los puntos no estan sobre un eje sino que
+# se reparten en un espacio asignado a su especie, lo que facilita la compresion
+
+#Almacenamos el grafico resultante en un pdf
+ggsave("./figure/Ejercicio3.pdf", width = 5, height = 5)
 ```
 
 ## Gráficos de línea con **ggplot2**
