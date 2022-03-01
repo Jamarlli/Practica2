@@ -514,7 +514,39 @@ ggplot(data=dataset_hist1, aes(x=AGE)) +
 * Almacena en formato **pdf** el gráfico resultante en un fichero denominado ``Ejercicio7.pdf``.
 
 ```{r Solucion ejercicio 7}
+# Cargamos el fichero
+fich <- read.table("http://assets.datacamp.com/blog_assets/chol.txt", header = TRUE)
 
+# Generamos el histograma de height
+g7.1 <- ggplot(data = fich, aes(x = HEIGHT)) + geom_histogram()
+g7.1
+
+# Añadimos titulo
+g7.2 <- g7.1 + labs(title = "Histograma de la variable Altura", 
+                    x = "Altura (cm)", y = "Frecuencia")
+g7.2
+
+# Ajustamos el rango y los bins
+g7.3 <- ggplot(data = fich, aes(x = HEIGHT)) + geom_histogram(bins = 20, breaks = seq(155, 195)) + 
+labs(title = "Histograma de la variable Altura", x = "Altura (cm)", y = "Frecuencia")
+g7.3
+
+# Cambiamos el color del histograma 
+g7.4 <- ggplot(data = fich, aes(x = HEIGHT)) + geom_histogram(bins = 20, breaks = seq(155, 195),col="red",fill="blue",alpha = .5) + 
+labs(title = "Histograma de la variable Altura", x = "Altura (cm)", y = "Frecuencia")
+g7.4  
+
+# Añadimos la curva de distribucion
+g7.5 <- ggplot(data = fich, aes(x = HEIGHT)) + geom_histogram(aes(y=stat(density)),bins = 20, breaks = seq(155, 195),col="red",fill="blue",alpha = .5) + 
+labs(title = "Histograma de la variable Altura", x = "Altura (cm)", y = "Frecuencia")+ geom_density(col="green")
+g7.5
+
+# Representamos g7.5 para cada valor de Smoke
+g7.6 <- g7.5 + facet_grid(SMOKE~.)
+g7.6
+
+#Almacenamos el grafico resultante en un pdf
+ggsave("./figure/Ejercicio7.pdf", width = 5, height = 5)
 ```
 
 ## Gráficos de barras con **ggplot2**
