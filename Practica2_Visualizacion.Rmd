@@ -172,7 +172,35 @@ ggsave("./figure/Ejercicio1.pdf", width = 5, height = 5)
 * Almacena en formato **pdf** el gráfico resultante en un fichero denominado ``Ejercicio2.pdf``.
 
 ```{r Solucion ejercicio 2}
+#Creamos un grafico de dispersion con x = Temp9am e y = Pressure9am
+grafico2_1 <- ggplot(data = ds, aes(x = Temp9am, y = Pressure9am)) + 
+  geom_point()
+grafico2_1
 
+# Modificamos el grafico anterior para que la forma del punto dependa de la 
+# variable RainToday
+grafico2_2 <- ggplot(data = ds, aes(x = Temp9am, y = Pressure9am)) + 
+  geom_point(aes(shape = RainToday))
+grafico2_2
+
+# Modificamos el grafico anterior para que la forma del punto dependa de la 
+# variable RainToday
+
+grafico2_3 <- ggplot(data = ds, aes(x = Temp9am, y = Pressure9am)) + 
+  geom_point(aes(color = RainToday)) 
+# Añadimos color al grafico2_1
+grafico2_3
+
+# Se observa mejor la informacion de RainToday con el color, ya que con la forma
+# no se distinguen bien unos puntos de otros debiado a que estan muy amontonados
+
+#Añadimos un titulo al grafico
+grafico2_4 <- grafico2_3 + ggtitle("Prevision de lluvia sabiendo la presion 
+y la temperatura a las 9:00")
+grafico2_4
+
+#Almacenamos el grafico resultante en un pdf
+ggsave("./figure/Ejercicio2.pdf", width = 5, height = 5)
 ```
 
 ### **Ejercicio 3**
