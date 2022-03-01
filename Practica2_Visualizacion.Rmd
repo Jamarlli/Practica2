@@ -134,7 +134,33 @@ p2
 * Almacena en formato **pdf** el gráfico resultante en un fichero denominado ``Ejercicio1.pdf``.
 
 ```{r Solucion ejercicio 1}
+load("data/weatherAUS_distributions.RData") # Cargamos el fichero ``weatherAUS.RData``
+library("ggplot2")
 
+# Creamos el grafico con x = MinTemp e y = MaxTemp
+grafico1 <- ggplot(data = ds, aes(x = MinTemp, y = MaxTemp)) 
+grafico1
+
+# Añadimos una capa para contruir un grafico de dispersion de x e y
+grafico1 <- grafico1 + geom_point()
+grafico1
+
+# Generamos el mismo grafico cambiando aes para que el color dependa de la 
+# variable "RainTomorrow"
+grafico2 <- ggplot(data = ds, aes(x = MinTemp, y = MaxTemp, color = RainTomorrow))
+grafico2
+
+# A partir de grafico2 añadimos una capa para generar el grafico de dispersion
+grafico2 <- grafico2 + geom_point()
+grafico2
+
+# Añadimos un titulo al grafico2 guardandolo en grafico3
+grafico3 <- grafico2 + ggtitle("Prevision de lluvia con máximas 
+y minimas temperaturas")
+grafico3
+
+#Almacenamos el grafico resultante en un pdf
+ggsave("./figure/Ejercicio1.pdf", width = 5, height = 5)
 ```
 
 ### **Ejercicio 2**
